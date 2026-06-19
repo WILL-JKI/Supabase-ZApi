@@ -1,11 +1,21 @@
 # Supabase-ZApi
 código em Python que leia pessoas cadastradas no Supabase e envie, via Z-API
 
+## Configuração do Ambiente
+
+### Criação do Ambiente Virtual
+
+Um ambiente virtual foi criado para isolar as dependências do projeto.
+
+### Instalação das Dependências
+
+As bibliotecas necessárias foram instaladas, incluindo o cliente do Supabase e o python-dotenv para gerenciamento de variáveis de ambiente. As dependências foram salvas no arquivo requirements.txt.
+
 ## Configuração do Supabase
 
 ### Criação da Tabela de Contatos
 
-Execute o seguinte SQL no painel do Supabase para criar a tabela `contatos`:
+A tabela `contatos` foi criada utilizando o seguinte SQL no painel do Supabase:
 
 ```sql
 create table contatos ( 
