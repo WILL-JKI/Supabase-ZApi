@@ -11,6 +11,17 @@ Um ambiente virtual foi criado para isolar as dependências do projeto.
 
 As bibliotecas necessárias foram instaladas, incluindo o cliente do Supabase e o python-dotenv para gerenciamento de variáveis de ambiente. As dependências foram salvas no arquivo requirements.txt.
 
+### Variáveis de Ambiente
+
+As credenciais e configurações sensíveis são armazenadas em um arquivo `.env` que não é commitado no repositório por segurança. Um arquivo `.env.example` foi criado como exemplo das variáveis necessárias.
+
+As variáveis de ambiente utilizadas são:
+- `SUPABASE_URL`: URL do projeto no Supabase
+- `SUPABASE_KEY`: Chave de acesso do Supabase
+- `ZAPI_INSTANCE_ID`: ID da instância do Z-API
+- `ZAPI_TOKEN`: Token de acesso do Z-API
+- `ZAPI_CLIENT_TOKEN`: Token cliente do Z-API (opcional)
+
 ## Configuração do Supabase
 
 ### Criação da Tabela de Contatos
