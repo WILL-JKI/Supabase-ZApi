@@ -22,23 +22,24 @@ try:
     supabase_client = supabase.create_client(SUPABASE_URL, SUPABASE_KEY)
     ZAPI_URL = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-text"
     
-    # Busca os contatos no Supabase
-    contatos_response = supabase_client.table('contatos').select('*').execute()
+    # Busca apenas os contatos com status 'pendente'
+    contatos_response = supabase_client.table('contatos').select('*').eq('status', 'pendente').execute()
     contatos = contatos_response.data
     
     if not contatos:
-        print("Nenhum contato encontrado no Supabase.")
+        print("Nenhum contato pendente encontrado no Supabase.")
         print("Verifique se as políticas de RLS (Row Level Security) estão configuradas corretamente para permitir leitura.")
         exit(0)
     
-    print(f"Encontrados {len(contatos)} contatos para enviar mensagens.")
+    print(f"Encontrados {len(contatos)} contatos pendentes para enviar mensagens.")
     
     for contato in contatos:
         nome = contato.get('nome')
         numero = contato.get('numero')
+        status = contato.get('status')
         
-        if not nome or not numero:
-            print(f"Contato com dados incompletos: {contato}")
+        if not nome or not numero or status != 'pendente':
+            print(f"Contato com dados incompletos ou já processado: {contato}")
             continue
         
         # Monta a mensagem
