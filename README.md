@@ -45,7 +45,7 @@ create table contatos (
 ### Políticas de Segurança RLS (Row Level Security)
 Para que o código consiga acessar e atualizar os dados da tabela, é necessário configurar as políticas de RLS. Você pode:
 1. Desativar temporariamente o RLS para a tabela (não recomendado para produção)
-2. Criar políticas que permitam leitura e atualização públicas:
+2. Criar políticas que permitam leitura e atualização públicas no SQL Editor:
 
 ```sql
 -- Política para leitura
@@ -73,8 +73,14 @@ Ative o ambiente virtual:
   source venv/bin/activate
   ```
 
-Execute o script principal:
+Execute o script principal para enviar mensagens:
 
 ```bash
 python main.py
+```
+
+Para resetar todos os contatos para status 'pendente':
+
+```bash
+python reset_contatos.py
 ```
