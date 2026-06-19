@@ -28,6 +28,7 @@ try:
     
     if not contatos:
         print("Nenhum contato encontrado no Supabase.")
+        print("Verifique se as políticas de RLS (Row Level Security) estão configuradas corretamente para permitir leitura.")
         exit(0)
     
     print(f"Encontrados {len(contatos)} contatos para enviar mensagens.")
@@ -54,9 +55,13 @@ try:
         
         # Verifica se a requisição foi bem-sucedida
         if response.status_code == 200:
-            print(f"Mensagem enviada para {numero} com sucesso: {mensagem}")
+            print(f"Mensagem enviada para {numero} com sucesso!")
+            # Atualiza para 'enviado' no Supabase
+            supabase_client.table('contatos').update({'status': 'enviado'}).eq('id', contato['id']).execute()
         else:
-            print(f"Erro ao enviar mensagem para {numero}: {response.text}")
+            print(f"Erro ao enviar para {numero}: {response.text}")
+            # Atualiza para 'erro' no Supabase
+            supabase_client.table('contatos').update({'status': 'erro'}).eq('id', contato['id']).execute()
             
 except Exception as e:
     print(f"Ocorreu um erro: {str(e)}")

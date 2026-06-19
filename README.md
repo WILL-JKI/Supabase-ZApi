@@ -42,6 +42,17 @@ create table contatos (
 );
 ```
 
+### Políticas de Segurança RLS (Row Level Security)
+Para que o código consiga acessar os dados da tabela, é necessário configurar as políticas de RLS. Você pode:
+1. Desativar temporariamente o RLS para a tabela (não recomendado para produção)
+2. Criar uma política que permita leitura pública:
+
+```sql
+create policy "Permitir leitura pública em contatos"
+on contatos for select
+using (true);
+```
+
 ## Como Executar o Projeto 🏃‍♂️
 
 Ative o ambiente virtual:
