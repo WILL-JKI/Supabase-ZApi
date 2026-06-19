@@ -1,32 +1,37 @@
-# Supabase-ZApi
-código em Python que leia pessoas cadastradas no Supabase e envie, via Z-API
+# Supabase-ZApi 🚀
+Código em Python que lê pessoas cadastradas no Supabase e envia mensagens personalizadas via Z-API.
 
-## Configuração do Ambiente
+## Configuração do Ambiente 🛠️
 
 ### Criação do Ambiente Virtual
-
 Um ambiente virtual foi criado para isolar as dependências do projeto.
 
-### Instalação das Dependências
+```bash
+python -m venv venv
+```
 
-As bibliotecas necessárias foram instaladas, incluindo o cliente do Supabase e o python-dotenv para gerenciamento de variáveis de ambiente. As dependências foram salvas no arquivo requirements.txt.
+### Instalação das Dependências
+As bibliotecas necessárias foram instaladas e salvas no arquivo requirements.txt.
+
+```bash
+pip install -r requirements.txt
+```
 
 ### Variáveis de Ambiente
+As credenciais e configurações sensíveis são armazenadas em um arquivo .env (ignorado pelo Git por segurança). Crie um arquivo .env na raiz do projeto com a seguinte estrutura (utilize o arquivo .env.example como referência):
 
-As credenciais e configurações sensíveis são armazenadas em um arquivo `.env` que não é commitado no repositório por segurança. Um arquivo `.env.example` foi criado como exemplo das variáveis necessárias.
+```plaintext
+SUPABASE_URL=sua_url_do_supabase
+SUPABASE_KEY=sua_chave_anon_do_supabase
+ZAPI_INSTANCE_ID=seu_id_da_instancia_zapi
+ZAPI_TOKEN=seu_token_da_zapi
+ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi (opcional)
+```
 
-As variáveis de ambiente utilizadas são:
-- `SUPABASE_URL`: URL do projeto no Supabase
-- `SUPABASE_KEY`: Chave de acesso do Supabase
-- `ZAPI_INSTANCE_ID`: ID da instância do Z-API
-- `ZAPI_TOKEN`: Token de acesso do Z-API
-- `ZAPI_CLIENT_TOKEN`: Token cliente do Z-API (opcional)
-
-## Configuração do Supabase
+## Configuração do Supabase 🗄️
 
 ### Criação da Tabela de Contatos
-
-A tabela `contatos` foi criada utilizando o seguinte SQL no painel do Supabase:
+A tabela `contatos` foi criada utilizando o seguinte SQL no painel do Supabase (SQL Editor):
 
 ```sql
 create table contatos ( 
@@ -35,4 +40,24 @@ create table contatos (
   numero text not null, 
   status text default 'pendente' 
 );
+```
+
+## Como Executar o Projeto 🏃‍♂️
+
+Ative o ambiente virtual:
+
+- No Windows:
+  ```bash
+  venv\Scripts\activate
+  ```
+
+- No Linux/Mac:
+  ```bash
+  source venv/bin/activate
+  ```
+
+Execute o script principal:
+
+```bash
+python main.py
 ```
