@@ -1,25 +1,12 @@
-import os
-import dotenv
-dotenv.load_dotenv()
-import supabase
+#!/usr/bin/env python3
+"""
+Arquivo alias para resetar contatos.
+Use: python reset_contatos.py
+Ou diretamente com: python main.py reset
+"""
 
-# Configuração do Supabase
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+import sys
+import subprocess
 
-# Verifica se as variáveis estão configuradas
-if not SUPABASE_URL or not SUPABASE_KEY:
-    print("Erro: Variáveis de ambiente não configuradas corretamente.")
-    print("Por favor, configure o arquivo .env com as credenciais.")
-    exit(1)
-
-try:
-    supabase_client = supabase.create_client(SUPABASE_URL, SUPABASE_KEY)
-    
-    # Atualiza todos os contatos para status 'pendente'
-    response = supabase_client.table('contatos').update({'status': 'pendente'}).neq('id', 0).execute()
-    
-    print(f"Contatos resetados com sucesso! Total de registros atualizados: {len(response.data)}")
-    
-except Exception as e:
-    print(f"Ocorreu um erro: {str(e)}")
+if __name__ == "__main__":
+    subprocess.run([sys.executable, "main.py", "reset"])

@@ -1,17 +1,28 @@
 # Supabase-ZApi 🚀
-Código em Python que lê pessoas cadastradas no Supabase e envia mensagens personalizadas via Z-API.
+Código em Python que leia pessoas cadastradas no Supabase e envie mensagens personalizadas via Z-API.
+
+## Requisitos
+- Python 3.8+
+- Conta no Supabase (gratuita)
+- Conta no Z-API (gratuita)
+
+## Funcionamento do Projeto
+1. **Busca Contatos**: Lê contatos do banco de dados do Supabase com status "pendente"
+2. **Valida Dados**: Verifica se o número de telefone é válido
+3. **Envia Mensagens**: Envia mensagem personalizada via Z-API para até 3 contatos
+4. **Atualiza Status**: Marca contatos como "enviado" ou "erro"
 
 ## Configuração do Ambiente 🛠️
 
-### Criação do Ambiente Virtual
+### 1. Criação do Ambiente Virtual
 Um ambiente virtual foi criado para isolar as dependências do projeto.
 
 ```bash
 python -m venv venv
 ```
 
-### Variáveis de Ambiente
-As credenciais e configurações sensíveis são armazenadas em um arquivo .env (ignorado pelo Git por segurança). Crie um arquivo .env na raiz do projeto com a seguinte estrutura (utilize o arquivo .env.example como referência):
+### 2. Variáveis de Ambiente
+As credenciais e configurações sensíveis são armazenadas em um arquivo `.env` (ignorado pelo Git por segurança). Crie um arquivo `.env` na raiz do projeto com a seguinte estrutura (utilize o arquivo `.env.example` como referência):
 
 ```plaintext
 SUPABASE_URL=sua_url_do_supabase
@@ -37,7 +48,7 @@ ZAPI_TOKEN=seu_token_da_zapi
 ## Configuração do Supabase 🗄️
 
 ### Criação da Tabela de Contatos
-A tabela `contatos` foi criada utilizando o seguinte SQL no painel do Supabase (SQL Editor):
+A tabela `contatos` precisa ser criada utilizando o seguinte SQL no painel do Supabase (SQL Editor):
 
 ```sql
 create table contatos ( 
@@ -80,7 +91,7 @@ using (true);
 
 ## Como Executar o Projeto 🏃‍♂️
 
-Ative o ambiente virtual:
+### 1. Ative o ambiente virtual:
 
 - No Windows:
   ```bash
@@ -92,20 +103,33 @@ Ative o ambiente virtual:
   source venv/bin/activate
   ```
 
-Instale as dependências:
+### 2. Instale as dependências:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Execute o script principal para enviar mensagens:
+### 3. Execute o script principal para enviar mensagens:
 
 ```bash
 python main.py
 ```
 
-Para resetar todos os contatos para status 'pendente':
+O script vai enviar mensagens para até 3 contatos pendentes e atualizar o status conforme resultado.
+
+### 4. Para resetar todos os contatos para status 'pendente':
+
+Use um dos comandos abaixo:
 
 ```bash
 python reset_contatos.py
 ```
+
+Ou diretamente pelo main.py:
+
+```bash
+python main.py reset
+```
+
+## Logs
+Os logs do programa são salvos automaticamente em `app.log` e também exibidos no terminal.

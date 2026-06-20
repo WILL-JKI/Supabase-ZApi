@@ -8,6 +8,9 @@ ENV/
 .env.local
 .env.*.local
 
+# Arquivos de log
+app.log
+
 # Arquivos Python
 __pycache__/
 *.py[cod]
