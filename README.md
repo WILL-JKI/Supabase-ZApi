@@ -34,6 +34,13 @@ ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi
 3. Encontre a seção **Legacy anon, service_role API keys**
 4. Copie a chave **anon public** e use como `SUPABASE_KEY`
 
+#### Obtendo as credenciais da Z-API:
+1. Acesse o painel da Z-API
+2. Vá para a página da sua instância
+3. Copie o **Instance ID** e use como `ZAPI_INSTANCE_ID`
+4. Copie o **Token** e use como `ZAPI_TOKEN`
+5. Copie o **Client Token** e use como `ZAPI_CLIENT_TOKEN`
+
 ## Configuração do Supabase 🗄️
 
 ### Criação da Tabela de Contatos
