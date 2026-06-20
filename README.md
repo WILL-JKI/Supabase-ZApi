@@ -10,18 +10,11 @@ Um ambiente virtual foi criado para isolar as dependências do projeto.
 python -m venv venv
 ```
 
-### Instalação das Dependências
-As bibliotecas necessárias foram instaladas e salvas no arquivo requirements.txt.
-
-```bash
-pip install -r requirements.txt
-```
-
 ### Variáveis de Ambiente
 As credenciais e configurações sensíveis são armazenadas em um arquivo .env (ignorado pelo Git por segurança). Crie um arquivo .env na raiz do projeto com a seguinte estrutura (utilize o arquivo .env.example como referência):
 
 ```plaintext
-SUPABASE_URL=https://opoynvieyharbqfnnvlo.supabase.co
+SUPABASE_URL=sua_url_do_supabase
 SUPABASE_KEY=sua_chave_anon_do_supabase
 ZAPI_INSTANCE_ID=seu_id_da_instancia_zapi
 ZAPI_TOKEN=seu_token_da_zapi
@@ -29,9 +22,11 @@ ZAPI_TOKEN=seu_token_da_zapi
 
 #### Obtendo as credenciais do Supabase:
 1. Acesse o painel do Supabase
-2. Vá para **Project Overview > API Keys**
-3. Encontre a seção **Legacy anon, service_role API keys**
-4. Copie a chave **anon public** e use como `SUPABASE_KEY`
+2. Vá para **Project Overview**
+3. Copie a **URL** do projeto e use como `SUPABASE_URL`
+4. Vá para **Project Overview > API Keys**
+5. Encontre a seção **Legacy anon, service_role API keys**
+6. Copie a chave **anon public** e use como `SUPABASE_KEY`
 
 #### Obtendo as credenciais da Z-API:
 1. Acesse o painel da Z-API
@@ -96,6 +91,12 @@ Ative o ambiente virtual:
   ```bash
   source venv/bin/activate
   ```
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
 
 Execute o script principal para enviar mensagens:
 
