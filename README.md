@@ -21,12 +21,18 @@ pip install -r requirements.txt
 As credenciais e configurações sensíveis são armazenadas em um arquivo .env (ignorado pelo Git por segurança). Crie um arquivo .env na raiz do projeto com a seguinte estrutura (utilize o arquivo .env.example como referência):
 
 ```plaintext
-SUPABASE_URL=sua_url_do_supabase
+SUPABASE_URL=https://opoynvieyharbqfnnvlo.supabase.co
 SUPABASE_KEY=sua_chave_anon_do_supabase
 ZAPI_INSTANCE_ID=seu_id_da_instancia_zapi
 ZAPI_TOKEN=seu_token_da_zapi
 ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi (opcional)
 ```
+
+#### Obtendo as credenciais do Supabase:
+1. Acesse o painel do Supabase
+2. Vá para **Project Overview > API Keys**
+3. Encontre a seção **Legacy anon, service_role API keys**
+4. Copie a chave **anon public** e use como `SUPABASE_KEY`
 
 ## Configuração do Supabase 🗄️
 
