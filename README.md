@@ -48,6 +48,12 @@ create table contatos (
 );
 ```
 
+#### Exemplo de registros na tabela:
+| id | nome | numero | status |
+|----|------|--------|--------|
+| 1 | Maria Silva | 83 99999-1234 | pendente |
+| 2 | João Santos | 83 88888-5678 | pendente |
+
 ### Políticas de Segurança RLS (Row Level Security)
 Para que o código consiga acessar e atualizar os dados da tabela, é necessário configurar as políticas de RLS. Você pode:
 1. Desativar temporariamente o RLS para a tabela (não recomendado para produção)
