@@ -54,6 +54,13 @@ create table contatos (
 | 1 | Maria Silva | 83 99999-1234 | pendente |
 | 2 | João Santos | 83 88888-5678 | pendente |
 
+#### Inserindo contatos na tabela:
+1. Acesse o painel do Supabase
+2. Vá para **Table Editor**
+3. Selecione a tabela `contatos`
+4. Clique em **Insert row**
+5. Preencha os campos `nome` e `numero` (o `id` é gerado automaticamente e `status` já vem como 'pendente' por padrão)
+
 ### Políticas de Segurança RLS (Row Level Security)
 Para que o código consiga acessar e atualizar os dados da tabela, é necessário configurar as políticas de RLS. Você pode:
 1. Desativar temporariamente o RLS para a tabela (não recomendado para produção)
