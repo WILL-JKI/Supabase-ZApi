@@ -10,10 +10,9 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 # Configuração do Z-API
 ZAPI_INSTANCE_ID = os.getenv("ZAPI_INSTANCE_ID")
 ZAPI_TOKEN = os.getenv("ZAPI_TOKEN")
-ZAPI_CLIENT_TOKEN = os.getenv("ZAPI_CLIENT_TOKEN")
 
 # Verifica se todas as variáveis de ambiente estão configuradas
-if not all([SUPABASE_URL, SUPABASE_KEY, ZAPI_INSTANCE_ID, ZAPI_TOKEN, ZAPI_CLIENT_TOKEN]):
+if not all([SUPABASE_URL, SUPABASE_KEY, ZAPI_INSTANCE_ID, ZAPI_TOKEN]):
     print("Erro: Variáveis de ambiente não configuradas corretamente.")
     print("Por favor, configure o arquivo .env com as credenciais.")
     exit(1)
@@ -21,11 +20,6 @@ if not all([SUPABASE_URL, SUPABASE_KEY, ZAPI_INSTANCE_ID, ZAPI_TOKEN, ZAPI_CLIEN
 try:
     supabase_client = supabase.create_client(SUPABASE_URL, SUPABASE_KEY)
     ZAPI_URL = f"https://api.z-api.io/instances/{ZAPI_INSTANCE_ID}/token/{ZAPI_TOKEN}/send-text"
-    
-    # Headers com client-token
-    headers = {
-        "Client-Token": ZAPI_CLIENT_TOKEN
-    }
     
     # Busca apenas os contatos com status 'pendente'
     contatos_response = supabase_client.table('contatos').select('*').eq('status', 'pendente').execute()
@@ -57,7 +51,7 @@ try:
         }
         
         # Envia a mensagem para a Z-API
-        response = requests.post(ZAPI_URL, json=payload, headers=headers)
+        response = requests.post(ZAPI_URL, json=payload)
         
         # Verifica se a requisição foi bem-sucedida
         if response.status_code == 200:

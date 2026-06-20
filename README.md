@@ -25,7 +25,6 @@ SUPABASE_URL=https://opoynvieyharbqfnnvlo.supabase.co
 SUPABASE_KEY=sua_chave_anon_do_supabase
 ZAPI_INSTANCE_ID=seu_id_da_instancia_zapi
 ZAPI_TOKEN=seu_token_da_zapi
-ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi
 ```
 
 #### Obtendo as credenciais do Supabase:
@@ -39,7 +38,6 @@ ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi
 2. Vá para a página da sua instância
 3. Copie o **Instance ID** e use como `ZAPI_INSTANCE_ID`
 4. Copie o **Token** e use como `ZAPI_TOKEN`
-5. Copie o **Client Token** e use como `ZAPI_CLIENT_TOKEN`
 
 ## Configuração do Supabase 🗄️
 
