@@ -25,7 +25,7 @@ SUPABASE_URL=https://opoynvieyharbqfnnvlo.supabase.co
 SUPABASE_KEY=sua_chave_anon_do_supabase
 ZAPI_INSTANCE_ID=seu_id_da_instancia_zapi
 ZAPI_TOKEN=seu_token_da_zapi
-ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi (opcional)
+ZAPI_CLIENT_TOKEN=seu_token_cliente_da_zapi
 ```
 
 #### Obtendo as credenciais do Supabase:
