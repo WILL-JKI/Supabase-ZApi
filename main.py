@@ -186,7 +186,7 @@ def criar_tabelas():
     """
     sql = """
 -- Execute no SQL Editor do Supabase Dashboard:
--- https://supabase.com/dashboard → SQL Editor → New query
+-- https://supabase.com/dashboard > SQL Editor > New query
 
 CREATE TABLE IF NOT EXISTS contatos (
     id      BIGSERIAL PRIMARY KEY,
