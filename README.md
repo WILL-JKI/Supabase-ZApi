@@ -56,7 +56,7 @@ Caso receba o erro `{"error":"your client-token is not configured"}`, sua instâ
 Execute o comando abaixo para obter o SQL de criação da tabela direto no terminal:
 
 ```bash
-python main.py --criar-tabelas
+python main.py --sql-tabelas
 ```
 
 O SQL exibido deve ser executado no **SQL Editor** do painel do Supabase. A tabela gerada terá a seguinte estrutura:
@@ -81,7 +81,7 @@ Você também pode inserir contatos manualmente via **Table Editor** no painel d
 
 ### Políticas de Segurança RLS (Row Level Security)
 
-O SQL gerado por `--criar-tabelas` já inclui a política de RLS recomendada (`FOR ALL`), cobrindo SELECT, INSERT, UPDATE e DELETE. Caso precise adicionar manualmente:
+O SQL gerado por `--sql-tabelas` já inclui a política de RLS recomendada (`FOR ALL`), cobrindo SELECT, INSERT, UPDATE e DELETE. Caso precise adicionar manualmente:
 
 ```sql
 CREATE POLICY "acesso total" ON contatos
@@ -91,6 +91,8 @@ CREATE POLICY "acesso total" ON contatos
 ```
 
 ## Como Executar o Projeto ▶️
+
+> **Dica:** Antes de começar, rode `python main.py --help` para ver todos os comandos disponíveis e suas descrições.
 
 Ative o ambiente virtual:
 
@@ -116,7 +118,7 @@ pip install -r requirements.txt
 |---|---|
 | `python main.py` | Envia mensagens para todos os contatos com status `pendente` |
 | `python main.py --reset` | Reseta todos os contatos para status `pendente` |
-| `python main.py --criar-tabelas` | Exibe o SQL de criação da tabela para rodar no Dashboard |
+| `python main.py --sql-tabelas` | Exibe o SQL de criacao da tabela para rodar no Dashboard |
 | `python main.py --popular-tabelas` | Abre prompt interativo para digitar e inserir contatos |
 | `python main.py --help` | Exibe a ajuda com todos os comandos disponíveis |
 

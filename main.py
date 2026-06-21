@@ -290,9 +290,9 @@ def main():
         help="Reseta todos os contatos para status 'pendente'.",
     )
     parser.add_argument(
-        "--criar-tabelas",
+        "--sql-tabelas",
         action="store_true",
-        help="Exibe o SQL para criação das tabelas no Dashboard do Supabase.",
+        help="Exibe o SQL para criacao das tabelas no Dashboard do Supabase.",
     )
     parser.add_argument(
         "--popular-tabelas",
@@ -301,8 +301,8 @@ def main():
     )
     args = parser.parse_args()
 
-    # --criar-tabelas não precisa de conexão
-    if args.criar_tabelas:
+    # --sql-tabelas nao precisa de conexao
+    if args.sql_tabelas:
         criar_tabelas()
         return
 
