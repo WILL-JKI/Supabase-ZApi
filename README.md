@@ -75,22 +75,19 @@ O SQL exibido deve ser executado no **SQL Editor** do painel do Supabase. A tabe
 python main.py --popular-tabelas
 ```
 
-Isso insere 3 contatos de teste com status `pendente` para validar o fluxo.
+Isso abre um prompt interativo onde você digita o nome e o número de cada contato, um por vez. Ao final, você confirma antes de inserir.
 
 Você também pode inserir contatos manualmente via **Table Editor** no painel do Supabase.
 
 ### Políticas de Segurança RLS (Row Level Security)
 
-O SQL gerado por `--criar-tabelas` já inclui a política de RLS recomendada para uso com `service_role`. Caso prefira configurar manualmente:
+O SQL gerado por `--criar-tabelas` já inclui a política de RLS recomendada (`FOR ALL`), cobrindo SELECT, INSERT, UPDATE e DELETE. Caso precise adicionar manualmente:
 
 ```sql
--- Política para leitura
-CREATE POLICY "Permitir leitura publica em contatos"
-ON contatos FOR SELECT USING (true);
-
--- Política para atualização
-CREATE POLICY "Permitir atualizacao publica em contatos"
-ON contatos FOR UPDATE USING (true);
+CREATE POLICY "acesso total" ON contatos
+    FOR ALL
+    USING (true)
+    WITH CHECK (true);
 ```
 
 ## Como Executar o Projeto ▶️
@@ -120,7 +117,7 @@ pip install -r requirements.txt
 | `python main.py` | Envia mensagens para todos os contatos com status `pendente` |
 | `python main.py --reset` | Reseta todos os contatos para status `pendente` |
 | `python main.py --criar-tabelas` | Exibe o SQL de criação da tabela para rodar no Dashboard |
-| `python main.py --popular-tabelas` | Insere contatos de exemplo para testes |
+| `python main.py --popular-tabelas` | Abre prompt interativo para digitar e inserir contatos |
 | `python main.py --help` | Exibe a ajuda com todos os comandos disponíveis |
 
 ## Logs 📋
