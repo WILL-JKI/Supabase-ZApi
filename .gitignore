@@ -1,3 +1,6 @@
+# Logs
+logs/
+
 # Ambiente virtual
 venv/
 env/
@@ -7,9 +10,6 @@ ENV/
 .env
 .env.local
 .env.*.local
-
-# Arquivos de log
-app.log
 
 # Arquivos Python
 __pycache__/
