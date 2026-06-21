@@ -52,7 +52,9 @@ def carregar_configuracoes() -> dict:
         "zapi_client_token": os.getenv("ZAPI_CLIENT_TOKEN"),
     }
 
-    faltando = [chave for chave, valor in config.items() if not valor]
+    # zapi_client_token é opcional, não entra na validação de obrigatórios
+    obrigatorios = ["supabase_url", "supabase_key", "zapi_instance_id", "zapi_token"]
+    faltando = [chave for chave in obrigatorios if not config.get(chave)]
     if faltando:
         logger.error("Variáveis de ambiente ausentes: {}", ", ".join(faltando))
         logger.error("Configure o arquivo .env com as credenciais e tente novamente.")
@@ -84,9 +86,13 @@ def buscar_contatos_pendentes(client: supabase.Client) -> list[dict]:
     contatos = resposta.data
 
     if not contatos:
+        logger.warning("Nenhum contato pendente encontrado.")
         logger.warning(
-            "Nenhum contato pendente encontrado. "
-            "Verifique as políticas de RLS no Supabase."
+            "Possíveis causas:\n"
+            "  1) Todos os contatos já foram processados (status 'enviado' ou 'erro').\n"
+            "     -> Para resetar, execute: python main.py --reset\n"
+            "  2) A tabela está vazia ou as políticas de RLS bloqueiam a leitura.\n"
+            "     -> Verifique as políticas de RLS no painel do Supabase."
         )
         return []
 
