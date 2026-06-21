@@ -92,8 +92,6 @@ CREATE POLICY "acesso total" ON contatos
 
 ## Como Executar o Projeto ▶️
 
-> **Dica:** Antes de começar, rode `python main.py --help` para ver todos os comandos disponíveis e suas descrições.
-
 Ative o ambiente virtual:
 
 - No Windows:
@@ -111,6 +109,8 @@ Instale as dependências:
 ```bash
 pip install -r requirements.txt
 ```
+
+> **Dica:** Com as dependências instaladas, rode `python main.py --help` para ver todos os comandos disponíveis.
 
 ### Comandos disponíveis
 
