@@ -223,16 +223,41 @@ CREATE POLICY "acesso total" ON contatos
 
 
 def popular_tabelas(client: supabase.Client):
-    """Insere contatos de exemplo na tabela para facilitar testes."""
-    contatos_exemplo = [
-        {"nome": "Alice Silva",  "numero": "5511999990001", "status": "pendente"},
-        {"nome": "Bruno Costa",  "numero": "5511999990002", "status": "pendente"},
-        {"nome": "Carla Mendes", "numero": "5511999990003", "status": "pendente"},
-    ]
+    """Coleta contatos via terminal e os insere na tabela."""
+    print("\n=== Adicionar contatos ===")
+    print("Digite os contatos um a um. Deixe o nome em branco para finalizar.\n")
 
-    logger.info("Inserindo {} contatos de exemplo...", len(contatos_exemplo))
+    contatos = []
+
+    while True:
+        nome = input("Nome (ou Enter para finalizar): ").strip()
+        if not nome:
+            break
+
+        numero = input(f"Numero de {nome} (ex: 5583999990001): ").strip()
+        if not numero:
+            print("Numero nao pode ser vazio. Contato ignorado.\n")
+            continue
+
+        contatos.append({"nome": nome, "numero": numero, "status": "pendente"})
+        print(f"  + {nome} ({numero}) adicionado.\n")
+
+    if not contatos:
+        logger.warning("Nenhum contato informado. Operacao cancelada.")
+        return
+
+    print(f"\nContatos a inserir ({len(contatos)}):")
+    for c in contatos:
+        print(f"  - {c['nome']} | {c['numero']}")
+
+    confirmacao = input("\nConfirmar insercao? (s/N): ").strip().lower()
+    if confirmacao != "s":
+        logger.info("Insercao cancelada pelo usuario.")
+        return
+
+    logger.info("Inserindo {} contato(s)...", len(contatos))
     try:
-        resposta = client.table("contatos").insert(contatos_exemplo).execute()
+        resposta = client.table("contatos").insert(contatos).execute()
         logger.success("{} contato(s) inserido(s) com sucesso.", len(resposta.data))
     except Exception as e:
         if "row-level security" in str(e).lower() or "42501" in str(e):
@@ -244,8 +269,9 @@ def popular_tabelas(client: supabase.Client):
                 "Ou rode: python main.py --criar-tabelas  (e aplique o SQL completo)"
             )
         else:
-            logger.error("Erro ao inserir contatos de exemplo: {}", e)
+            logger.error("Erro ao inserir contatos: {}", e)
         sys.exit(1)
+
 
 
 # ---------------------------------------------------------------------------
