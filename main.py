@@ -48,6 +48,8 @@ def carregar_configuracoes() -> dict:
         "supabase_key": os.getenv("SUPABASE_KEY"),
         "zapi_instance_id": os.getenv("ZAPI_INSTANCE_ID"),
         "zapi_token": os.getenv("ZAPI_TOKEN"),
+        # Opcional: necessário apenas se o "Token de Segurança" estiver ativado na instância Z-API
+        "zapi_client_token": os.getenv("ZAPI_CLIENT_TOKEN"),
     }
 
     faltando = [chave for chave, valor in config.items() if not valor]
@@ -131,7 +133,11 @@ def enviar_mensagem(config: dict, contato: dict) -> bool:
     mensagem = f"Olá, {nome} tudo bem com você?"
     payload = {"phone": numero, "message": mensagem}
 
-    resposta = requests.post(config["zapi_url"], json=payload)
+    headers = {}
+    if config.get("zapi_client_token"):
+        headers["Client-Token"] = config["zapi_client_token"]
+
+    resposta = requests.post(config["zapi_url"], json=payload, headers=headers)
 
     if resposta.status_code == 200:
         logger.success("Mensagem enviada para {} ({}).", nome, numero)

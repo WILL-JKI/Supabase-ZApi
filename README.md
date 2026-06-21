@@ -19,6 +19,7 @@ SUPABASE_URL=sua_url_do_supabase
 SUPABASE_KEY=sua_chave_anon_do_supabase
 ZAPI_INSTANCE_ID=seu_id_da_instancia_zapi
 ZAPI_TOKEN=seu_token_da_zapi
+ZAPI_CLIENT_TOKEN=seu_token_de_seguranca_zapi  # opcional, veja instruções abaixo
 ```
 
 #### Obtendo as credenciais do Supabase:
@@ -34,6 +35,19 @@ ZAPI_TOKEN=seu_token_da_zapi
 2. Vá para a página da sua instância
 3. Copie o **Instance ID** e use como `ZAPI_INSTANCE_ID`
 4. Copie o **Token** e use como `ZAPI_TOKEN`
+
+#### Token de Segurança Z-API (`ZAPI_CLIENT_TOKEN`) — opcional:
+
+Caso receba o erro `{"error":"your client-token is not configured"}`, sua instância tem o **Token de Segurança** ativado. Para configurar:
+
+1. Acesse o painel da Z-API → sua instância → aba **Segurança**
+2. Copie o **Token de Segurança** exibido
+3. Adicione ao `.env`:
+   ```plaintext
+   ZAPI_CLIENT_TOKEN=seu_token_de_seguranca_aqui
+   ```
+
+> Para desativar esse requisito, basta ir em **Segurança** na Z-API e desabilitar o Token de Segurança. Se `ZAPI_CLIENT_TOKEN` não estiver no `.env`, o código funciona normalmente sem ele.
 
 ## Configuração do Supabase 🗄️
 
