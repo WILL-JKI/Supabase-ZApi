@@ -201,37 +201,51 @@ def criar_tabelas():
 -- https://supabase.com/dashboard > SQL Editor > New query
 
 CREATE TABLE IF NOT EXISTS contatos (
-    id      BIGSERIAL PRIMARY KEY,
-    nome    TEXT        NOT NULL,
-    numero  TEXT        NOT NULL,
-    status  TEXT        NOT NULL DEFAULT 'pendente'
-                        CHECK (status IN ('pendente', 'enviado', 'erro')),
-    criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    id        BIGSERIAL    PRIMARY KEY,
+    nome      TEXT         NOT NULL,
+    numero    TEXT         NOT NULL,
+    status    TEXT         NOT NULL DEFAULT 'pendente'
+                           CHECK (status IN ('pendente', 'enviado', 'erro')),
+    criado_em TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
 
 -- Habilitar Row Level Security (RLS)
 ALTER TABLE contatos ENABLE ROW LEVEL SECURITY;
 
--- Política: permitir leitura e escrita para usuários autenticados via service_role
-CREATE POLICY "service_role acesso total" ON contatos
+-- Politica unica: permitir todas as operacoes (SELECT, INSERT, UPDATE, DELETE)
+CREATE POLICY "acesso total" ON contatos
+    FOR ALL
     USING (true)
     WITH CHECK (true);
 """
-    logger.info("SQL para criação de tabelas:")
+    logger.info("SQL para criacao de tabelas:")
     print(sql)
 
 
 def popular_tabelas(client: supabase.Client):
     """Insere contatos de exemplo na tabela para facilitar testes."""
     contatos_exemplo = [
-        {"nome": "Alice Silva",   "numero": "5511999990001", "status": "pendente"},
-        {"nome": "Bruno Costa",   "numero": "5511999990002", "status": "pendente"},
-        {"nome": "Carla Mendes",  "numero": "5511999990003", "status": "pendente"},
+        {"nome": "Alice Silva",  "numero": "5511999990001", "status": "pendente"},
+        {"nome": "Bruno Costa",  "numero": "5511999990002", "status": "pendente"},
+        {"nome": "Carla Mendes", "numero": "5511999990003", "status": "pendente"},
     ]
 
     logger.info("Inserindo {} contatos de exemplo...", len(contatos_exemplo))
-    resposta = client.table("contatos").insert(contatos_exemplo).execute()
-    logger.success("{} contato(s) inserido(s) com sucesso.", len(resposta.data))
+    try:
+        resposta = client.table("contatos").insert(contatos_exemplo).execute()
+        logger.success("{} contato(s) inserido(s) com sucesso.", len(resposta.data))
+    except Exception as e:
+        if "row-level security" in str(e).lower() or "42501" in str(e):
+            logger.error("Sem permissao de INSERT na tabela 'contatos' (RLS bloqueando).")
+            logger.error(
+                "Para corrigir, execute no SQL Editor do Supabase:\n\n"
+                "  CREATE POLICY \"acesso total\" ON contatos\n"
+                "      FOR ALL USING (true) WITH CHECK (true);\n\n"
+                "Ou rode: python main.py --criar-tabelas  (e aplique o SQL completo)"
+            )
+        else:
+            logger.error("Erro ao inserir contatos de exemplo: {}", e)
+        sys.exit(1)
 
 
 # ---------------------------------------------------------------------------
